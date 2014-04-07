@@ -10,5 +10,6 @@
 @interface NSFileHandle (readLine)
 
 - (NSData *)readLineWithDelimiter:(NSString *)theDelimier;
+- (NSData *)readLineWithDataDelimiter:(NSData*)theDelimiter;
 
 @end

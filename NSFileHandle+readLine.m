@@ -9,12 +9,16 @@
 
 @implementation NSFileHandle (readLine)
 
-- (NSData *)readLineWithDelimiter:(NSString *)theDelimiter
+- (NSData *)readLineWithDelimiter:(NSString *)theDelimiter {
+    return [self readLineWithDataDelimiter:[theDelimiter dataUsingEncoding:NSASCIIStringEncoding]];
+}
+
+- (NSData *)readLineWithDataDelimiter:(NSData *)theDelimiter
 {
     NSUInteger bufferSize = 1024; // Set our buffer size
     
     // Read the delimiter string into a C string
-    NSData *delimiterData = [theDelimiter dataUsingEncoding:NSASCIIStringEncoding];
+    NSData *delimiterData = theDelimiter;
     const char *delimiter = [delimiterData bytes];
     
     NSUInteger delimiterIndex = 0;
@@ -82,8 +86,7 @@
     
     if ([returnData length] > 0)
     {
-        [returnData retain];
-        return [returnData autorelease];
+        return returnData;
     }
     else
     {
